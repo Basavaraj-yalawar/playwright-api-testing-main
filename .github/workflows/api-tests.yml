@@ -31,7 +31,10 @@ jobs:
         env:
           BASE_URL: https://jsonplaceholder.typicode.com
 
-      - name: Upload test results
+      - name: Run Newman/Postman Collection
+        run: npm run newman:run
+
+      - name: Upload Playwright test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -39,10 +42,18 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Upload test artifacts
+      - name: Upload Playwright test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test-results/
+          retention-days: 30
+
+      - name: Upload Newman Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-report
+          path: reports/newman/
           retention-days: 30
