@@ -37,6 +37,16 @@ jobs:
       - name: Run Newman/Postman Collection
         run: npm run newman:run
 
+      - name: List generated reports
+        if: always()
+        run: |
+          echo "=== Reports Directory Structure ==="
+          ls -la reports/ || echo "No reports directory"
+          echo "=== Newman Reports ==="
+          ls -la reports/newman/ || echo "No newman reports"
+          echo "=== Playwright Reports ==="
+          ls -la reports/playwright/ || echo "No playwright reports"
+
       - name: Upload Playwright HTML Report
         if: always()
         uses: actions/upload-artifact@v4
