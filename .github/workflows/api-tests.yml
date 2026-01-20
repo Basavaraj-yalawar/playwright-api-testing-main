@@ -31,6 +31,9 @@ jobs:
         env:
           BASE_URL: https://jsonplaceholder.typicode.com
 
+      - name: Create reports directory
+        run: mkdir -p reports/newman
+
       - name: Run Newman/Postman Collection
         run: npm run newman:run
 
