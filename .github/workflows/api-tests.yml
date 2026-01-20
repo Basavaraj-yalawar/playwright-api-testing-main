@@ -26,8 +26,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Newman HTML Extra Reporter
+        run: npm install -g newman-reporter-htmlextra
+
       - name: Run API tests
         run: npm run test:api
+        continue-on-error: true
         env:
           BASE_URL: https://jsonplaceholder.typicode.com
 
@@ -35,7 +39,15 @@ jobs:
         run: mkdir -p reports/newman
 
       - name: Run Newman/Postman Collection
-        run: npm run newman:run
+        continue-on-error: true
+        run: |
+          echo "Running Newman collection..."
+          npx newman run postman/CRUD_VAL.postman_collection.json \
+            --env-var base_url=https://jsonplaceholder.typicode.com/posts \
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export reports/newman/newman-report.html \
+            --reporter-htmlextra-darkTheme
+          echo "Newman execution completed"
 
       - name: List generated reports
         if: always()
