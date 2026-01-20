@@ -5,7 +5,8 @@
   "scripts": {
    "test:api": "playwright test tests/api",
    "test": "npm run test:api",
-   "newman:run": "npx newman run postman/CRUD_VAL.postman_collection.json --env-var base_url=https://jsonplaceholder.typicode.com/posts --verbose --reporters cli,html --reporter-html-export reports/newman/newman-report.html"
+   "newman:run": "npx newman run postman/CRUD_VAL.postman_collection.json --env-var base_url=https://jsonplaceholder.typicode.com/posts --verbose --reporters cli,html --reporter-html-export reports/newman/newman-report.html",
+   "newman:extrahtml": "npx newman run postman/CRUD_VAL.postman_collection.json -e postman/JSONplaceholder.postman_environment.json --reporters cli,htmlextra --reporter-htmlextra-export reports/newman/newman-report-extra.html"
   },
   "devDependencies": {
     "@playwright/test": "^1.41.0",
